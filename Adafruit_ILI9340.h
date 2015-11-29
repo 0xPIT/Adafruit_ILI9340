@@ -119,12 +119,10 @@
 #define ILI9340_WHITE   0xFFFF
 
 
-class Adafruit_ILI9340 : public Adafruit_GFX {
-
- public:
-
-  Adafruit_ILI9340(uint8_t CS, uint8_t RS, uint8_t MOSI, uint8_t SCLK,
-		   uint8_t RST, uint8_t MISO);
+class Adafruit_ILI9340 : public Adafruit_GFX
+{
+public:
+  Adafruit_ILI9340(uint8_t CS, uint8_t RS, uint8_t MOSI, uint8_t SCLK, uint8_t RST, uint8_t MISO);
   Adafruit_ILI9340(uint8_t CS, uint8_t RS, uint8_t RST);
 
   void     begin(void),
@@ -134,8 +132,7 @@ class Adafruit_ILI9340 : public Adafruit_GFX {
            drawPixel(int16_t x, int16_t y, uint16_t color),
            drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color),
            drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color),
-           fillRect(int16_t x, int16_t y, int16_t w, int16_t h,
-             uint16_t color),
+           fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color),
            setRotation(uint8_t r),
            invertDisplay(boolean i);
   uint16_t Color565(uint8_t r, uint8_t g, uint8_t b);
@@ -150,32 +147,37 @@ class Adafruit_ILI9340 : public Adafruit_GFX {
   */  
 
   void     spiwrite(uint8_t),
-    writecommand(uint8_t c),
-    writedata(uint8_t d),
-    commandList(uint8_t *addr);
+           writecommand(uint8_t c),
+           writedata(uint8_t d),
+           commandList(uint8_t *addr);
   uint8_t  spiread(void);
 
  private:
   uint8_t  tabcolor;
-
-
-
   boolean  hwSPI;
+
 #ifdef __AVR__  
   volatile uint8_t *mosiport, *clkport, *dcport, *rsport, *csport;
   uint8_t  _cs, _dc, _rst, _mosi, _miso, _sclk,
            mosipinmask, clkpinmask, cspinmask, dcpinmask;
 #endif //  #ifdef __AVR__
+
 #if defined(__SAM3X8E__)
   Pio *mosiport, *clkport, *dcport, *rsport, *csport;
   uint32_t  _cs, _dc, _rst, _mosi, _miso, _sclk,
             mosipinmask, clkpinmask, cspinmask, dcpinmask;
 #endif //  #if defined(__SAM3X8E__)
+
 #if defined(__arm__) && defined(CORE_TEENSY)
   volatile uint8_t *mosiport, *clkport, *dcport, *rsport, *csport;
   uint8_t  _cs, _dc, _rst, _mosi, _miso, _sclk,
            mosipinmask, clkpinmask, cspinmask, dcpinmask;
 #endif
+
+#if defined(ESP8266)
+ uint8_t  _cs, _dc, _rst, _mosi, _miso, _sclk;
+#endif
+
 };
 
 #endif
