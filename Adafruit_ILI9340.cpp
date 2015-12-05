@@ -208,6 +208,10 @@ void Adafruit_ILI9340::begin(void) {
     SPI.setClockDivider(11); // 85MHz / 11 = 7.6 MHz (full! speed!)
 #endif
 
+#if defined(ESP8266)
+    SPI.setFrequency(80e6);
+#endif
+
     SPI.setBitOrder(MSBFIRST);
     SPI.setDataMode(SPI_MODE0);
   } 
